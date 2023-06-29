@@ -9,6 +9,7 @@ const main = async () => {
         const employee2 = await createEmployee('Finance', 15000);
 
         const report = await twing.render('report.twig', {
+            companyId: process.env.COMPANY_ID,
             employees: [employee1, employee2]
         });
 
