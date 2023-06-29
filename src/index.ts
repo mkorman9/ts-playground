@@ -1,4 +1,4 @@
-import { COMPANY_ID } from './config';
+import config from './config';
 import './error_handlers';
 
 import twing from './twing';
@@ -13,7 +13,7 @@ const main = async () => {
 
         const report = await twing.render('report.twig', {
             now: daysjs(),
-            companyId: COMPANY_ID,
+            companyId: config.COMPANY_ID,
             employees: [employee1, employee2]
         });
 
