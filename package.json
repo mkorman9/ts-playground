@@ -1,0 +1,20 @@
+{
+  "name": "node-playground",
+  "version": "1.0.0",
+  "description": "",
+  "author": "michal.korman",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc --build",
+    "start": "tsc-watch --onSuccess \"node ./dist\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "tsc-watch": "^6.0.4",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "twing": "^6.0.0-alpha.1"
+  }
+}
