@@ -1,0 +1,4 @@
+!dist/
+!templates/
+!package.json
+!package-lock.json
