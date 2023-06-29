@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import { createEmployee } from './employee';
 import twing from './twing';
 
