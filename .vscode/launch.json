@@ -17,6 +17,20 @@
             ],
             "cwd": "${workspaceFolder}",
             "outputCapture": "std"
+        },
+        {
+            "name": "test",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "test"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}",
+            "outputCapture": "std"
         }
     ]
   }
