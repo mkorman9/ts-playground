@@ -4,9 +4,9 @@ process.on('SIGINT', async () => {
 });
 
 process.on('uncaughtException', err => {
-    console.error(err);
+    console.error(`Unhandled exception: ${err}`);
 });
 
 process.on('unhandledRejection', (reason, p) => {
-    console.log(`Unhandled rejection: ${reason} ${p}`);
+    console.error(`Unhandled Promise rejection: ${reason} ${p}`);
 });
