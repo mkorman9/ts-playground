@@ -1,6 +1,7 @@
 import * as config from './config';
 import { createEmployee } from './employee';
 import twing from './twing';
+import daysjs from 'dayjs';
 
 const main = async () => {
     try {
@@ -8,6 +9,7 @@ const main = async () => {
         const employee2 = await createEmployee('Finance', 15000);
 
         const report = await twing.render('report.twig', {
+            now: daysjs(),
             companyId: config.COMPANY_ID,
             employees: [employee1, employee2]
         });
