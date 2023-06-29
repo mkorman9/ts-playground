@@ -28,6 +28,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "dayjs": "^1.11.8",
     "dotenv": "^16.3.1",
     "twing": "^6.0.0-alpha.1"

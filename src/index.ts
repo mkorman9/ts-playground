@@ -1,9 +1,10 @@
 import * as config from './config';
 import './error_handlers';
 
-import { createEmployee } from './employee';
 import twing from './twing';
 import daysjs from 'dayjs';
+import { createEmployee } from './employee';
+import { findPublicIp } from './ip';
 
 const main = async () => {
     try {
@@ -17,6 +18,15 @@ const main = async () => {
         });
 
         console.log(report);
+
+        setInterval(async () => {
+            try {
+                const ip = await findPublicIp();
+                console.log(`IP: ${ip}`);
+            } catch (err) {
+                console.error(`Error while finding IP address: ${err}`);
+            }
+        }, 3000);
     } catch (err) {
         console.error(err);
     }
