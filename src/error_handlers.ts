@@ -3,7 +3,7 @@ process.on('SIGINT', async () => {
     process.exit(0);
 });
 
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', err => {
     console.error(err);
 });
 

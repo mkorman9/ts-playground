@@ -6,12 +6,20 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "lint": "eslint src/**/*.ts",
+    "format": "eslint src/**/*.ts --fix",
     "build": "tsc --build",
     "start": "tsc-watch --onSuccess \"node ./dist\"",
     "exec": "exec node --enable-source-maps ./dist"
   },
   "devDependencies": {
     "@types/node": "^20.3.2",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
     "tsc-watch": "^6.0.4",
     "typescript": "^5.1.6"
   },
