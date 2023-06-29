@@ -1,5 +1,4 @@
-import 'dotenv/config'
-
+import * as config from './config';
 import { createEmployee } from './employee';
 import twing from './twing';
 
@@ -9,7 +8,7 @@ const main = async () => {
         const employee2 = await createEmployee('Finance', 15000);
 
         const report = await twing.render('report.twig', {
-            companyId: process.env.COMPANY_ID,
+            companyId: config.COMPANY_ID,
             employees: [employee1, employee2]
         });
 
