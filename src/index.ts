@@ -2,7 +2,7 @@ import config from './config';
 import './error_handlers';
 
 import twing from './twing';
-import daysjs from 'dayjs';
+import dayjs from 'dayjs';
 import { createEmployee } from './employee';
 import { findPublicIp } from './ip';
 
@@ -12,7 +12,7 @@ const main = async () => {
         const employee2 = await createEmployee('Finance', 15000);
 
         const report = await twing.render('report.twig', {
-            now: daysjs(),
+            now: dayjs(),
             companyId: config.COMPANY_ID,
             employees: [employee1, employee2]
         });
