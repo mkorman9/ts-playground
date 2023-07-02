@@ -1,5 +1,6 @@
 import config from './config';
 import './error_handlers';
+import app from './app';
 
 import twing from './twing';
 import dayjs from 'dayjs';
@@ -27,6 +28,10 @@ const main = async () => {
                 console.error(`Error while finding IP address: ${err}`);
             }
         }, 3000);
+
+        app.listen(8080, '0.0.0.0', () => {
+            console.log('Listening on :8080');
+        });
     } catch (err) {
         console.error(err);
     }
