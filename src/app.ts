@@ -8,11 +8,9 @@ app.disable('etag');
 app.use(express.json());
 
 app.get('/', async (req: Request, res: Response) => {
-    res
-        .status(200)
-        .json({
-            'hello': 'world!'
-        });
+  res.status(200).json({
+    hello: 'world!'
+  });
 });
 
 export default app;
