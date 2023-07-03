@@ -5,7 +5,6 @@ import app from './app';
 import twing from './twing';
 import dayjs from 'dayjs';
 import { createEmployee } from './employee';
-import { findPublicIp } from './ip';
 
 const main = async () => {
   try {
@@ -19,15 +18,6 @@ const main = async () => {
     });
 
     console.log(report);
-
-    setInterval(async () => {
-      try {
-        const ip = await findPublicIp();
-        console.log(`IP: ${ip}`);
-      } catch (err) {
-        console.error(`Error while finding IP address: ${err}`);
-      }
-    }, 3000);
 
     app.listen(8080, '0.0.0.0', () => {
       console.log('Listening on :8080');
