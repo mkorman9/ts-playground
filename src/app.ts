@@ -18,7 +18,7 @@ app.get('/ip', async (req: Request, res: Response) => {
   const ip = await findPublicIp();
   res.status(200).json({
     ip: ip
-  })
+  });
 });
 
 export default app;
