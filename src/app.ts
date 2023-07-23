@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { findPublicIp } from './ip';
+import { PayloadRequest, PayloadRequestSchema, getRequestBody, requestBodyMiddleware } from './payload';
 
 const app = express();
 
@@ -22,6 +23,11 @@ app.get('/ip', (req: Request, res: Response, next: NextFunction) => {
       });
     })
     .catch(err => next(err));
+});
+
+app.put('/payload', requestBodyMiddleware(PayloadRequestSchema), (req: Request, res: Response) => {
+  const body = getRequestBody<PayloadRequest>(req);
+  res.status(200).json(body);
 });
 
 export default app;
