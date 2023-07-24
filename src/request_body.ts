@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodType, unknown } from 'zod';
+import { ZodType } from 'zod';
 import { validationResult } from 'express-validator';
 
 interface RequestWithValidatedBody extends Request {
@@ -13,7 +13,7 @@ export const bindRequestBody = (t: ZodType) => {
       return res.status(400).json({
         error: 'Request validation error',
         violations: validationErrors.array().map(e => ({
-          field: e.type == 'field' ? e.path : unknown,
+          field: e.type == 'field' ? e.path : undefined,
           code: e.msg
         }))
       });
