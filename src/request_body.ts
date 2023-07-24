@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import z from 'zod';
 import { validationResult } from 'express-validator';
 
-interface RequestWithValidatedBody extends Request {
+type RequestWithValidatedBody = Request & {
   validatedBody: unknown;
-}
+};
 
 export const bindRequestBody = (schema: z.Schema) => {
   return (req: Request, res: Response, next: NextFunction) => {
