@@ -13,7 +13,7 @@ export const bindRequestBody = (schema: z.Schema) => {
       return res.status(400).json({
         error: 'Request validation error',
         violations: validationErrors.array().map(e => ({
-          field: e.type == 'field' ? e.path : undefined,
+          field: e.type === 'field' ? e.path : undefined,
           code: e.msg
         }))
       });
