@@ -19,16 +19,17 @@ export const bindRequestBody = (schema: z.Schema) => {
       });
     }
 
-    try {
-      (req as RequestWithValidatedBody).validatedBody = schema.parse(req.body);
-    } catch (err) {
-      return res.status(400).json({
-        error: 'Malformed request payload',
-        violations: []
+    schema.parseAsync(req.body)
+      .then(validatedBody => {
+        (req as RequestWithValidatedBody).validatedBody = validatedBody;
+        next();
+      })
+      .catch(() => {
+        res.status(400).json({
+          error: 'Malformed request payload',
+          violations: []
+        });
       });
-    }
-
-    next();
   };
 };
 
