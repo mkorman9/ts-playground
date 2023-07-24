@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { findPublicIp } from './ip';
-import { PayloadRequest, PayloadRequestSchema, getRequestBody, requestBodyMiddleware } from './payload';
+import { getRequestBody, bindRequestBody } from './request_body';
+import { z } from 'zod';
 
 const app = express();
 
@@ -25,9 +26,21 @@ app.get('/ip', (req: Request, res: Response, next: NextFunction) => {
     .catch(err => next(err));
 });
 
-app.put('/payload', requestBodyMiddleware(PayloadRequestSchema), (req: Request, res: Response) => {
-  const body = getRequestBody<PayloadRequest>(req);
-  res.status(200).json(body);
+export const PayloadRequestSchema = z.object({
+  name: z.string(),
+  age: z.number(),
+  timestamp: z.coerce.date()
 });
+
+export type PayloadRequest = z.infer<typeof PayloadRequestSchema>;
+
+app.put(
+  '/payload',
+  bindRequestBody(PayloadRequestSchema),
+  (req: Request, res: Response) => {
+    const body = getRequestBody<PayloadRequest>(req);
+    res.status(200).json(body);
+  }
+);
 
 export default app;

@@ -1,23 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodType, z } from 'zod';
-
-export const PayloadRequestSchema = z.object({
-  name: z.string(),
-  age: z.number(),
-  timestamp: z.coerce.date()
-});
-
-export type PayloadRequest = z.infer<typeof PayloadRequestSchema>;
+import { ZodType } from 'zod';
 
 interface RequestWithParsedBody extends Request {
   parsedBody: unknown;
 }
 
-export const requestBodyMiddleware = (t: ZodType) => {
-  return (req: RequestWithParsedBody, res: Response, next: NextFunction) => {
+export const bindRequestBody = (t: ZodType) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     try {
       const body = t.parse(req.body);
-      req.parsedBody = body;
+
+      const reqWithBody = req as RequestWithParsedBody;
+      reqWithBody.parsedBody = body;
     } catch (err) {
       return res.status(400).send('Malformed request payload');
     }
