@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodType } from 'zod';
-import { FieldValidationError, validationResult } from 'express-validator';
+import { ZodType, unknown } from 'zod';
+import { validationResult } from 'express-validator';
 
-interface RequestWithParsedBody extends Request {
-  parsedBody: unknown;
+interface RequestWithValidatedBody extends Request {
+  validatedBody: unknown;
 }
 
 export const bindRequestBody = (t: ZodType) => {
@@ -13,17 +13,14 @@ export const bindRequestBody = (t: ZodType) => {
       return res.status(400).json({
         error: 'Request validation error',
         violations: validationErrors.array().map(e => ({
-          field: (e as FieldValidationError).path,
+          field: e.type == 'field' ? e.path : unknown,
           code: e.msg
         }))
       });
     }
 
     try {
-      const body = t.parse(req.body);
-
-      const reqWithBody = req as RequestWithParsedBody;
-      reqWithBody.parsedBody = body;
+      (req as RequestWithValidatedBody).validatedBody = t.parse(req.body);
     } catch (err) {
       return res.status(400).json({
         error: 'Malformed request payload',
@@ -36,5 +33,5 @@ export const bindRequestBody = (t: ZodType) => {
 };
 
 export const getRequestBody = <T>(req: Request) => {
-  return (req as RequestWithParsedBody).parsedBody as T;
+  return (req as RequestWithValidatedBody).validatedBody as T;
 };
