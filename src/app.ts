@@ -43,8 +43,7 @@ const PayloadRequestValidators = [
   body('age')
     .exists().withMessage('required')
     .bail()
-    .isInt({ min: 1 }).withMessage('format')
-    .bail(),
+    .isInt({ min: 1 }).withMessage('format'),
   body('timestamp')
     .exists().withMessage('required')
     .bail()
