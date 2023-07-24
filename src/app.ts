@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { findPublicIp } from './ip';
 import { getRequestBody, bindRequestBody } from './request_body';
 import { z } from 'zod';
+import { body } from 'express-validator';
 
 const app = express();
 
@@ -26,16 +27,33 @@ app.get('/ip', (req: Request, res: Response, next: NextFunction) => {
     .catch(err => next(err));
 });
 
-export const PayloadRequestSchema = z.object({
+const PayloadRequestSchema = z.object({
   name: z.string(),
   age: z.number(),
   timestamp: z.coerce.date()
 });
 
-export type PayloadRequest = z.infer<typeof PayloadRequestSchema>;
+type PayloadRequest = z.infer<typeof PayloadRequestSchema>;
+
+const PayloadRequestValidators = [
+  body('name')
+    .exists().withMessage('required')
+    .bail()
+    .isString().withMessage('format'),
+  body('age')
+    .exists().withMessage('required')
+    .bail()
+    .isInt({ min: 1 }).withMessage('format')
+    .bail(),
+  body('timestamp')
+    .exists().withMessage('required')
+    .bail()
+    .isISO8601().withMessage('format')
+];
 
 app.put(
   '/payload',
+  ...PayloadRequestValidators,
   bindRequestBody(PayloadRequestSchema),
   (req: Request, res: Response) => {
     const body = getRequestBody<PayloadRequest>(req);
