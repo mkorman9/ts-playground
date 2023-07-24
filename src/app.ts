@@ -35,6 +35,7 @@ const PayloadRequestSchema = z.object({
 
 type PayloadRequest = z.infer<typeof PayloadRequestSchema>;
 
+// prettier-ignore
 const PayloadRequestValidators = [
   body('name')
     .exists().withMessage('required')

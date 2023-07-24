@@ -19,7 +19,8 @@ export const bindRequestBody = (schema: z.Schema) => {
       });
     }
 
-    schema.parseAsync(req.body)
+    schema
+      .parseAsync(req.body)
       .then(validatedBody => {
         (req as RequestWithValidatedBody).validatedBody = validatedBody;
         next();
