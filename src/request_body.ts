@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import z, { ZodError } from 'zod';
+import { NextFunction, Request, Response } from 'express';
+import z, { ZodError, ZodIssue } from 'zod';
 
 type RequestWithValidatedBody = Request & {
   validatedBody: unknown;
@@ -19,7 +19,7 @@ export const bindRequestBody = (schema: z.Schema) => {
             error: 'Request validation error',
             violations: e.issues.map(issue => ({
               field: joinPath(issue.path),
-              code: issue.code
+              code: mapIssueCode(issue)
             }))
           });
         } else {
@@ -46,3 +46,17 @@ const joinPath = (parts: (string | number)[]) => {
     }
   }, '');
 };
+
+const mapIssueCode = (issue: ZodIssue) => {
+  if (issue.code === 'invalid_type') {
+    if (issue.received === 'undefined' && issue.expected !== 'undefined') {
+      return 'required';
+    }
+  } else if (issue.code === 'invalid_string') {
+    if (typeof issue.validation === 'string') {
+      return issue.validation;
+    }
+  }
+
+  return issue.code;
+}
