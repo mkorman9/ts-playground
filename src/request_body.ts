@@ -59,4 +59,4 @@ const mapIssueCode = (issue: ZodIssue) => {
   }
 
   return issue.code;
-}
+};
