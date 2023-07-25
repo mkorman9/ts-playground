@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import z from 'zod';
-import { validationResult } from 'express-validator';
+import z, { ZodError } from 'zod';
 
 type RequestWithValidatedBody = Request & {
   validatedBody: unknown;
@@ -8,32 +7,45 @@ type RequestWithValidatedBody = Request & {
 
 export const bindRequestBody = (schema: z.Schema) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const validationErrors = validationResult(req);
-    if (!validationErrors.isEmpty()) {
-      return res.status(400).json({
-        error: 'Request validation error',
-        violations: validationErrors.array().map(e => ({
-          field: e.type === 'field' ? e.path : undefined,
-          code: e.msg
-        }))
-      });
-    }
-
     schema
       .parseAsync(req.body)
       .then(validatedBody => {
         (req as RequestWithValidatedBody).validatedBody = validatedBody;
         next();
       })
-      .catch(() => {
-        res.status(400).json({
-          error: 'Malformed request payload',
-          violations: []
-        });
+      .catch(e => {
+        if (e instanceof ZodError) {
+          res.status(400).json({
+            error: 'Request validation error',
+            violations: e.issues.map(issue => ({
+              field: joinPath(issue.path),
+              code: issue.code
+            }))
+          });
+        } else {
+          next(e);
+        }
       });
   };
 };
 
 export const getRequestBody = <T>(req: Request) => {
   return (req as RequestWithValidatedBody).validatedBody as T;
+};
+
+const joinPath = (parts: (string | number)[]) => {
+  return parts.reduce(
+    (acc: string, current: (string | number)) => {
+      if (typeof current === 'number') {
+        return `${acc}[${current}]`;
+      } else {
+        if (acc.length === 0) {
+          return current;
+        } else {
+          return `${acc}.${current}`;
+        }
+      }
+    },
+    ''
+  );
 };
