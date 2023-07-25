@@ -17,7 +17,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
   if (err instanceof SyntaxError && 'body' in err) {
     return res.status(400).json({
-      error: 'Request parsing error',
+      error: 'Request parsing error'
     });
   }
 
@@ -57,11 +57,11 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {
     return next(err);
   }
-  
+
   console.error(err);
 
   res.status(500).json({
-    error: 'Internal server error',
+    error: 'Internal server error'
   });
 });
 
