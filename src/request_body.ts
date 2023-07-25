@@ -34,18 +34,15 @@ export const getRequestBody = <T>(req: Request) => {
 };
 
 const joinPath = (parts: (string | number)[]) => {
-  return parts.reduce(
-    (acc: string, current: (string | number)) => {
-      if (typeof current === 'number') {
-        return `${acc}[${current}]`;
+  return parts.reduce((acc: string, current: string | number) => {
+    if (typeof current === 'number') {
+      return `${acc}[${current}]`;
+    } else {
+      if (acc.length === 0) {
+        return current;
       } else {
-        if (acc.length === 0) {
-          return current;
-        } else {
-          return `${acc}.${current}`;
-        }
+        return `${acc}.${current}`;
       }
-    },
-    ''
-  );
+    }
+  }, '');
 };

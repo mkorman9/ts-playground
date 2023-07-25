@@ -34,13 +34,9 @@ const PayloadRequestSchema = z.object({
 
 type PayloadRequest = z.infer<typeof PayloadRequestSchema>;
 
-app.put(
-  '/payload',
-  bindRequestBody(PayloadRequestSchema),
-  (req: Request, res: Response) => {
-    const body = getRequestBody<PayloadRequest>(req);
-    res.status(200).json(body);
-  }
-);
+app.put('/payload', bindRequestBody(PayloadRequestSchema), (req: Request, res: Response) => {
+  const body = getRequestBody<PayloadRequest>(req);
+  res.status(200).json(body);
+});
 
 export default app;
