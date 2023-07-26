@@ -1,6 +1,6 @@
 import log from './log';
 
-process.on('SIGINT', async () => {
+process.on('SIGINT', () => {
   log.info('Exiting due to signal');
   process.exit(0);
 });
