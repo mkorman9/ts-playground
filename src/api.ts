@@ -34,4 +34,8 @@ api.put('/payload', bindRequestBody(PayloadRequestSchema), (req: Request, res: R
   res.status(200).json(body);
 });
 
+api.get('/error', (req: Request, res: Response) => {
+  throw new Error('Error in request handler!');
+});
+
 export default api;

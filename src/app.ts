@@ -24,12 +24,18 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.use('/', api);
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.status(404).json({
+    error: 'Not found'
+  });
+});
+
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (res.headersSent) {
     return next(err);
   }
 
-  console.error(err);
+  console.error(`Error when handling request ${req.method} ${req.path} (${req.ip}): ${err.stack}`);
 
   res.status(500).json({
     error: 'Internal server error'
