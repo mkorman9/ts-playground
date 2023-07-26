@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import api from './api';
+import log from './log';
 
 const app = express();
 
@@ -35,7 +36,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     return next(err);
   }
 
-  console.error(`Error when handling request ${req.method} ${req.path} (${req.ip}): ${err.stack}`);
+  log.error(`Error when handling request ${req.method} ${req.path} (${req.ip})`, { stack: err.stack });
 
   res.status(500).json({
     error: 'Internal server error'
