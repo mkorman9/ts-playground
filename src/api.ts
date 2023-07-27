@@ -6,7 +6,7 @@ import { findPublicIp } from './ip';
 const api = Router();
 
 const PayloadRequestSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1),
   age: z.number().min(1),
   timestamp: z.coerce.date()
 });
