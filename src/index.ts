@@ -1,6 +1,6 @@
 // import before any other module
-import config from './providers/config';
 import './error_handlers';
+import config from './providers/config';
 
 import app from './app';
 import log from './providers/log';

@@ -1,7 +1,7 @@
 import log from './providers/log';
 
 process.on('SIGINT', () => {
-  log.info('Exiting due to signal');
+  log.info('Exiting due to a signal');
   process.exit(0);
 });
 
