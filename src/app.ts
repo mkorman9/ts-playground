@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express';
 import api from './api';
-import log from './log';
+import log from './providers/log';
 
 const app = express();
 

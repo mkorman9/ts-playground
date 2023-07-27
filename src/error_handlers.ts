@@ -1,4 +1,4 @@
-import log from './log';
+import log from './providers/log';
 
 process.on('SIGINT', () => {
   log.info('Exiting due to signal');
