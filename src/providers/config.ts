@@ -7,6 +7,10 @@ const abort = (message: string): never => {
 };
 
 export default {
+  // HTTP
   HTTP_HOST: process.env.HTTP_HOST || abort('Missing HTTP_HOST'),
-  HTTP_PORT: parseInt(process.env.HTTP_PORT || '') || abort('Missing HTTP_PORT')
+  HTTP_PORT: parseInt(process.env.HTTP_PORT || '') || abort('Missing HTTP_PORT'),
+
+  // GELF
+  GELF_ADDRESS: process.env.GELF_ADDRESS
 };
