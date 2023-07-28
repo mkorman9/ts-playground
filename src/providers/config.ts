@@ -1,16 +1,22 @@
 import 'dotenv/config';
-import log from './log';
+import { z } from 'zod';
 
-const abort = (message: string): never => {
-  log.error('Failed to start up', { stack: new Error(message).stack });
-  process.exit(1);
-};
-
-export default {
+const ConfigSchema = z.object({
   // HTTP
-  HTTP_HOST: process.env.HTTP_HOST || abort('Missing HTTP_HOST'),
-  HTTP_PORT: parseInt(process.env.HTTP_PORT || '') || abort('Missing HTTP_PORT'),
+  HTTP_HOST: z.string(),
+  HTTP_PORT: z.preprocess(Number, z.number().int()),
 
   // GELF
-  GELF_ADDRESS: process.env.GELF_ADDRESS
-};
+  GELF_ADDRESS: z.string().optional()
+});
+
+function loadConfig() {
+  try {
+    return ConfigSchema.parse(process.env);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+}
+
+export default loadConfig();
