@@ -14,4 +14,9 @@ process.on('SIGINT', () => {
     log.info('Closed server');
     process.exit(0);
   });
+
+  setTimeout(() => {
+    log.error('Timeout when closing the server');
+    process.exit(1);
+  }, 5000);
 });
