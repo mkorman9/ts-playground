@@ -11,7 +11,7 @@ const server = app.listen(config.HTTP_PORT, config.HTTP_HOST, () => {
 
 server.on('error', err => {
   log.error('Failed to start up the server', { stack: err.stack });
-  process.exit(1);
+  setTimeout(() => process.exit(1), 250);
 });
 
 process.on('SIGINT', () => {
@@ -21,11 +21,11 @@ process.on('SIGINT', () => {
 
   server.close(() => {
     log.info('Server shutdown complete');
-    process.exit(0);
+    setTimeout(() => process.exit(0), 250);
   });
 
   setTimeout(() => {
     log.error('Timeout when closing the server');
-    process.exit(1);
+    setTimeout(() => process.exit(1), 250);
   }, 5000);
 });
