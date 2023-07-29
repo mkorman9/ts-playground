@@ -31,5 +31,8 @@ process.on('SIGINT', () => {
 });
 
 function exit(code: number) {
-  setTimeout(() => process.exit(code), 500);
+  // to allow logger messages to process
+  setImmediate(() => {
+    process.exit(code);
+  });
 }
