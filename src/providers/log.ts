@@ -11,7 +11,12 @@ if (config.GELF_ADDRESS) {
       defaultMeta: {
         facility: 'ts-playground'
       },
-      format: winston.format.combine(winston.format.timestamp(), winston.format.json())
+      format: winston.format.combine(
+        winston.format.timestamp({
+          alias: 'original_timestamp'
+        }),
+        winston.format.json()
+      )
     })
   );
 }
