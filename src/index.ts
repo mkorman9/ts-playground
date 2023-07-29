@@ -10,7 +10,7 @@ const server = app.listen(config.HTTP_PORT, config.HTTP_HOST, () => {
 });
 
 server.on('error', err => {
-  log.error('Failed to start up the server', { stack: err });
+  log.error('Failed to start up the server', { stack: err.stack });
   process.exit(1);
 });
 
