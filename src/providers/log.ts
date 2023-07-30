@@ -11,27 +11,26 @@ if (config.GELF_ADDRESS) {
       defaultMeta: {
         facility: 'ts-playground'
       },
-      format: winston.format.combine(
-        winston.format.timestamp({
-          alias: 'original_timestamp'
-        }),
-        winston.format.json()
-      )
+      format: winston.format.json()
     })
   );
 }
 
 export default winston.createLogger({
   level: 'info',
-  transports: [new winston.transports.Console(), ...remoteTransports],
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.printf(info => {
-      if (info.stack) {
-        return `${info.timestamp} | ${info.level} | ${info.message}: ${info.stack}`;
-      }
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.timestamp(),
+        winston.format.printf(info => {
+          if (info.stack) {
+            return `${info.timestamp} | ${info.level} | ${info.message}: ${info.stack}`;
+          }
 
-      return `${info.timestamp} | ${info.level} | ${info.message}`;
-    })
-  )
+          return `${info.timestamp} | ${info.level} | ${info.message}`;
+        })
+      )
+    }),
+    ...remoteTransports
+  ]
 });

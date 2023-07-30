@@ -19,6 +19,8 @@ process.on('SIGINT', () => {
     return;
   }
 
+  log.info('Received SIGINT');
+
   server.close(() => {
     log.info('Server shutdown complete');
     exit(0);
