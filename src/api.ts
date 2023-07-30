@@ -37,10 +37,13 @@ api.get('/ip', (req: Request, res: Response, next: NextFunction) => {
     .catch(err => next(err));
 });
 
-api.put('/payload', bindRequestBody(PayloadRequestSchema), (req: Request, res: Response) => {
-  const body = getRequestBody<PayloadRequest>(req);
-  res.status(200).json(body);
-});
+api.put('/payload',
+  bindRequestBody(PayloadRequestSchema),
+  (req: Request, res: Response) => {
+    const body = getRequestBody<PayloadRequest>(req);
+    res.status(200).json(body);
+  }
+);
 
 api.get('/error', (req: Request, res: Response) => {
   throw new Error('Error in request handler!');
