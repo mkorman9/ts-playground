@@ -46,4 +46,18 @@ api.get('/error', (req: Request, res: Response) => {
   throw new Error('Error in request handler!');
 });
 
+api.get('/health/readiness', (req: Request, res: Response) => {
+  res.status(200).json({
+    status: 'healthy'
+  });
+});
+
+api.get('/health/liveness', (req: Request, res: Response) => {
+  // TODO: verify health
+  
+  res.status(200).json({
+    status: 'healthy'
+  });
+});
+
 export default api;
