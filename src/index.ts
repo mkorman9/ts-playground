@@ -33,8 +33,7 @@ process.on('SIGINT', () => {
 });
 
 function exit(code: number) {
-  // to allow logger messages to process
-  setImmediate(() => {
+  setImmediate(() => {  // to allow logger messages to process
     process.exit(code);
   });
 }
