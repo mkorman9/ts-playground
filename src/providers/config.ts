@@ -2,6 +2,9 @@ import 'dotenv/config';
 import { z } from 'zod';
 
 const ConfigSchema = z.object({
+  // Logging
+  LOG_LEVEL: z.string().default('info'),
+
   // HTTP
   HTTP_HOST: z.string(),
   HTTP_PORT: z.preprocess(Number, z.number().int()),

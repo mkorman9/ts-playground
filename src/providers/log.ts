@@ -17,7 +17,7 @@ if (config.GELF_ADDRESS) {
 }
 
 export default winston.createLogger({
-  level: 'info',
+  level: config.LOG_LEVEL,
   transports: [
     new winston.transports.Console({
       format: winston.format.combine(
