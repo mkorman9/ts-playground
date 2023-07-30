@@ -54,7 +54,7 @@ api.get('/health/readiness', (req: Request, res: Response) => {
 
 api.get('/health/liveness', (req: Request, res: Response) => {
   // TODO: verify health
-  
+
   res.status(200).json({
     status: 'healthy'
   });
