@@ -8,22 +8,22 @@ chai.use(chaiHttp);
 describe('API', () => {
   test('it should return 200 when calling GET /', async () => {
     const response = await chai.request(app).get('/');
-    expect(response.statusCode).toEqual(200);
+    expect(response.statusCode).toBe(200);
   });
 
   test('it should return 200 when calling GET /health/readiness', async () => {
     const response = await chai.request(app).get('/health/readiness');
-    expect(response.statusCode).toEqual(200);
+    expect(response.statusCode).toBe(200);
   });
 
   test('it should return 200 when calling GET /health/liveness', async () => {
     const response = await chai.request(app).get('/health/liveness');
-    expect(response.statusCode).toEqual(200);
+    expect(response.statusCode).toBe(200);
   });
 
   test('it should return 500 when calling GET /error', async () => {
     const response = await chai.request(app).get('/error');
-    expect(response.statusCode).toEqual(500);
+    expect(response.statusCode).toBe(500);
   });
 
   test('it should return 200 when sending valid payload to PUT /payload', async () => {
@@ -37,7 +37,7 @@ describe('API', () => {
       .set('Content-Type', 'application/json')
       .send(payload);
 
-    expect(response.statusCode).toEqual(200);
+    expect(response.statusCode).toBe(200);
     expect(response.body).toEqual(payload);
   });
 
@@ -51,7 +51,7 @@ describe('API', () => {
         timestamp: 'invalidDate'
       });
 
-    expect(response.statusCode).toEqual(400);
-    expect(response.body.violations.length).toEqual(3);
+    expect(response.statusCode).toBe(400);
+    expect(response.body.violations.length).toBe(3);
   });
 });
