@@ -40,4 +40,18 @@ describe('API', () => {
     expect(response.statusCode).toEqual(200);
     expect(response.body).toEqual(payload);
   });
+
+  test('it should return 400 when sending invalid payload to PUT /payload', async () => {
+    const response = await chai.request(app)
+      .put('/payload')
+      .set('Content-Type', 'application/json')
+      .send({
+        name: '',
+        age: 37.5,
+        timestamp: 'invalidDate'
+      });
+
+    expect(response.statusCode).toEqual(400);
+    expect(response.body.violations.length).toEqual(3);
+  });
 });
