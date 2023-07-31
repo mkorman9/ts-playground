@@ -10,7 +10,7 @@ export function bindRequestBody(schema: z.Schema) {
     schema
       .parseAsync(req.body)
       .then(validatedBody => {
-        (req as RequestWithValidatedBody<unknown>).validatedBody = validatedBody;
+        (req as RequestWithValidatedBody<typeof validatedBody>).validatedBody = validatedBody;
         next();
       })
       .catch(e => {
