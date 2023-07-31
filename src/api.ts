@@ -37,7 +37,8 @@ api.get('/ip', (req: Request, res: Response, next: NextFunction) => {
     .catch(err => next(err));
 });
 
-api.put('/payload',
+api.put(
+  '/payload',
   bindRequestBody(PayloadRequestSchema),
   (req: Request, res: Response) => {
     const body = getRequestBody<PayloadRequest>(req);
