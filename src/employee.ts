@@ -4,10 +4,10 @@ export interface IEmployee {
   salary: number;
 }
 
-export const createEmployee = async (department: string, salary: number): Promise<IEmployee> => {
+export async function createEmployee(department: string, salary: number) {
   return {
     id: Math.floor(Math.random() * 10000),
     department: department,
     salary: salary
   };
-};
+}

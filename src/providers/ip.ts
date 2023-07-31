@@ -11,7 +11,7 @@ interface HttpBinGetResponse {
   };
 }
 
-export const findPublicIp = async (): Promise<string> => {
+export async function findPublicIp() {
   const response = await axios.get<HttpBinGetResponse>('https://httpbin.org/get', {
     headers: {
       'User-Agent': 'ts-playground/1.0'
@@ -19,4 +19,4 @@ export const findPublicIp = async (): Promise<string> => {
   });
 
   return response.data.origin;
-};
+}
