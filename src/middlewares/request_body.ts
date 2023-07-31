@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import z, { ZodError, ZodIssue } from 'zod';
 
-type RequestWithValidatedBody = Request & {
-  validatedBody: unknown;
+type RequestWithValidatedBody<T> = Request & {
+  validatedBody: T;
 };
 
 export function bindRequestBody(schema: z.Schema) {
@@ -10,7 +10,7 @@ export function bindRequestBody(schema: z.Schema) {
     schema
       .parseAsync(req.body)
       .then(validatedBody => {
-        (req as RequestWithValidatedBody).validatedBody = validatedBody;
+        (req as RequestWithValidatedBody<unknown>).validatedBody = validatedBody;
         next();
       })
       .catch(e => {
@@ -30,7 +30,7 @@ export function bindRequestBody(schema: z.Schema) {
 }
 
 export function getRequestBody<T>(req: Request) {
-  return (req as RequestWithValidatedBody).validatedBody as T;
+  return (req as RequestWithValidatedBody<T>).validatedBody;
 }
 
 function joinPath(parts: (string | number)[]) {
