@@ -5,7 +5,7 @@ type RequestWithValidatedBody = Request & {
   validatedBody: unknown;
 };
 
-export const bindRequestBody = (schema: z.Schema) => {
+export function bindRequestBody(schema: z.Schema) {
   return (req: Request, res: Response, next: NextFunction) => {
     schema
       .parseAsync(req.body)
@@ -27,13 +27,13 @@ export const bindRequestBody = (schema: z.Schema) => {
         }
       });
   };
-};
+}
 
-export const getRequestBody = <T>(req: Request) => {
+export function getRequestBody<T>(req: Request) {
   return (req as RequestWithValidatedBody).validatedBody as T;
-};
+}
 
-const joinPath = (parts: (string | number)[]) => {
+function joinPath(parts: (string | number)[]) {
   return parts.reduce((acc: string, current: string | number) => {
     if (typeof current === 'number') {
       return `${acc}[${current}]`;
@@ -45,9 +45,9 @@ const joinPath = (parts: (string | number)[]) => {
       }
     }
   }, '');
-};
+}
 
-const mapIssueCode = (issue: ZodIssue) => {
+function mapIssueCode(issue: ZodIssue) {
   if (issue.code === 'invalid_type') {
     if (issue.received === 'undefined' && issue.expected !== 'undefined') {
       return 'required';
@@ -59,4 +59,4 @@ const mapIssueCode = (issue: ZodIssue) => {
   }
 
   return issue.code;
-};
+}
