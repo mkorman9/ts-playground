@@ -2,10 +2,15 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from './app';
 import dayjs from 'dayjs';
+import * as ip from './providers/ip';
 
 chai.use(chaiHttp);
 
 describe('API', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('should return 200 when calling GET /', async () => {
     const response = await chai.request(app).get('/');
     expect(response.statusCode).toEqual(200);
@@ -53,5 +58,15 @@ describe('API', () => {
 
     expect(response.statusCode).toEqual(400);
     expect(response.body.violations.length).toEqual(3);
+  });
+
+  it('should return given IP address when calling GET /ip', async () => {
+    const givenIp = '10.0.0.1';
+    jest.spyOn(ip, 'findPublicIp')
+      .mockReturnValue(Promise.resolve(givenIp));
+
+    const response = await chai.request(app).get('/ip');
+    expect(response.statusCode).toEqual(200);
+    expect(response.body.ip).toEqual(givenIp);
   });
 });
