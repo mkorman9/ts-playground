@@ -62,11 +62,12 @@ describe('API', () => {
 
   it('should return given IP address when calling GET /ip', async () => {
     const givenIp = '10.0.0.1';
-    jest.spyOn(ip, 'findPublicIp')
+    const findPublicIpSpy = jest.spyOn(ip, 'findPublicIp')
       .mockReturnValue(Promise.resolve(givenIp));
 
     const response = await chai.request(app).get('/ip');
     expect(response.statusCode).toEqual(200);
     expect(response.body.ip).toEqual(givenIp);
+    expect(findPublicIpSpy).toBeCalled();
   });
 });
