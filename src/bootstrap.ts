@@ -6,4 +6,4 @@ import './bootstrap/error_handlers';
 
 // load the rest of modules
 import './bootstrap/log_extension';
-import './bootstrap/dayjs_config';
+import './bootstrap/dayjs_extensions';
