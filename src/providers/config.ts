@@ -1,5 +1,6 @@
 import 'dotenv/config';
 import { z } from 'zod';
+import log from './log';
 
 const ConfigSchema = z.object({
   // Logging
@@ -17,7 +18,10 @@ function loadConfig() {
   try {
     return ConfigSchema.parse(process.env);
   } catch (err) {
-    console.error(err);
+    if (err instanceof Error) {
+      log.error('Failed to parse configuration', { stack: err.stack });
+    }
+
     process.exit(1);
   }
 }
