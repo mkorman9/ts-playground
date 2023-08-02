@@ -1,4 +1,4 @@
-import log from './providers/log';
+import log from '../providers/log';
 
 process.on('uncaughtException', err => {
   log.error('Unhandled exception', { stack: err.stack });

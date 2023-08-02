@@ -1,8 +1,8 @@
 // import before any other module
-import './error_handlers';
-import config from './providers/config';
+import './bootstrap';
 
 import app from './app';
+import config from './providers/config';
 import log from './providers/log';
 
 const server = app.listen(config.HTTP_PORT, config.HTTP_HOST, () => {
