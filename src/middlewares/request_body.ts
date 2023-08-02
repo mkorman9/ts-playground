@@ -9,8 +9,8 @@ export function bindRequestBody(schema: z.Schema) {
   return (req: Request, res: Response, next: NextFunction) => {
     schema
       .parseAsync(req.body)
-      .then(validatedBody => {
-        (req as RequestWithValidatedBody<typeof validatedBody>).validatedBody = validatedBody;
+      .then(vb => {
+        (req as RequestWithValidatedBody<typeof vb>).validatedBody = vb;
         next();
       })
       .catch(e => {
