@@ -5,5 +5,5 @@ import './providers/config';
 import './bootstrap/error_handlers';
 
 // load the rest of modules
-import './bootstrap/log_extension';
+import './bootstrap/log_extensions';
 import './bootstrap/dayjs_extensions';
