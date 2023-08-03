@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from 'express';
-import api from './api';
+import api from './api/api';
 import log from './providers/log';
 
 const app = express();

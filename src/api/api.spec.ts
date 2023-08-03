@@ -1,8 +1,8 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import app from './app';
+import app from '../app';
 import dayjs from 'dayjs';
-import * as ip from './providers/ip';
+import * as ip from '../providers/ip';
 
 chai.use(chaiHttp);
 
