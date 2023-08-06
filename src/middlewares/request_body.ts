@@ -7,8 +7,7 @@ type RequestWithValidatedBody<T> = Request & {
 
 export function bindRequestBody(schema: z.Schema) {
   return (req: Request, res: Response, next: NextFunction) => {
-    schema
-      .parseAsync(req.body)
+    schema.parseAsync(req.body)
       .then(vb => {
         (req as RequestWithValidatedBody<typeof vb>).validatedBody = vb;
         next();
