@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
-import api from './module/api/api';
+import './common/providers/dayjs_extensions';
 import log from './common/providers/log';
+import api from './module/api/api';
 
 const app = express();
 

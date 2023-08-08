@@ -32,6 +32,18 @@ process.on('SIGINT', () => {
   }, 5000);
 });
 
+process.on('uncaughtException', err => {
+  log.error('Unhandled exception', { stack: err.stack });
+});
+
+process.on('unhandledRejection', reason => {
+  if (reason instanceof Error) {
+    log.error(`Unhandled Promise rejection`, { stack: reason.stack });
+  } else {
+    log.error(`Unhandled Promise rejection: ${reason}`);
+  }
+});
+
 function exit(code: number) {
   setImmediate(() => {  // to allow logger messages to process
     process.exit(code);
