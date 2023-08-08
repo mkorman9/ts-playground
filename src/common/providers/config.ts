@@ -15,6 +15,10 @@ const ConfigSchema = z.object({
 });
 
 function loadConfig() {
+  if (process.env.NODE_ENV === 'test') {
+    return {} as z.infer<typeof ConfigSchema>;
+  }
+
   try {
     return ConfigSchema.parse(process.env);
   } catch (err) {
