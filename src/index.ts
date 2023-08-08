@@ -2,8 +2,8 @@
 import './bootstrap';
 
 import app from './app';
-import config from './providers/config';
-import log from './providers/log';
+import config from './common/providers/config';
+import log from './common/providers/log';
 
 const server = app.listen(config.HTTP_PORT, config.HTTP_HOST, () => {
   log.info(`Server started listening on ${config.HTTP_HOST}:${config.HTTP_PORT}`);

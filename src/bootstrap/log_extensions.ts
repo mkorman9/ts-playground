@@ -1,7 +1,7 @@
 import winston from 'winston';
-import config from '../providers/config';
+import config from '../common/providers/config';
 import WinstonGraylog from '@pskzcompany/winston-graylog';
-import log from '../providers/log';
+import log from '../common/providers/log';
 
 if (config.GELF_ADDRESS) {
   log.add(

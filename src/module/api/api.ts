@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { NextFunction, Request, Response, Router } from 'express';
 import { z } from 'zod';
-import { bindRequestBody, getRequestBody } from '../middlewares/request_body';
+import { bindRequestBody, getRequestBody } from '../../common/middlewares/request_body';
 import { findPublicIp } from '../providers/ip';
-import templates from '../providers/templates';
+import templates from '../../common/providers/templates';
 
 const api = Router();
 
