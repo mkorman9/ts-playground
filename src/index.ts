@@ -10,7 +10,7 @@ const server = app.listen(config.HTTP_PORT, config.HTTP_HOST, () => {
 
 server.on('error', err => {
   log.error('Failed to start up the server', { stack: err.stack });
-  exit(1);
+  setImmediate(() => process.exit(1));
 });
 
 process.on('SIGINT', () => {
@@ -22,12 +22,12 @@ process.on('SIGINT', () => {
 
   server.close(() => {
     log.info('Server shutdown complete');
-    exit(0);
+    setImmediate(() => process.exit(0));
   });
 
   setTimeout(() => {
     log.error('Timeout when closing the server');
-    exit(1);
+    setImmediate(() => process.exit(1));
   }, 5000);
 });
 
@@ -42,9 +42,3 @@ process.on('unhandledRejection', reason => {
     log.error(`Unhandled Promise rejection: ${reason}`);
   }
 });
-
-function exit(code: number) {
-  setImmediate(() => {  // to allow logger messages to process
-    process.exit(code);
-  });
-}
