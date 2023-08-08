@@ -22,7 +22,9 @@ api.get('/', (req: Request, res: Response, next: NextFunction) => {
       numbers: [1, 2]
     })
     .then(content => {
-      res.status(200).set('Content-Type', 'text/html').send(content);
+      res.status(200)
+        .contentType('html')
+        .send(content);
     })
     .catch(err => next(err));
 });
