@@ -1,6 +1,6 @@
+import WinstonGraylog from '@pskzcompany/winston-graylog';
 import winston from 'winston';
 import config from '../common/providers/config';
-import WinstonGraylog from '@pskzcompany/winston-graylog';
 import log from '../common/providers/log';
 
 if (config.GELF_ADDRESS) {
