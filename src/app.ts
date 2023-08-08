@@ -1,5 +1,8 @@
-import express, { NextFunction, Request, Response } from 'express';
+// first load extensions
 import './common/providers/dayjs_extensions';
+import './common/providers/log_extensions';
+
+import express, { NextFunction, Request, Response } from 'express';
 import log from './common/providers/log';
 import api from './module/api/api';
 

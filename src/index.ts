@@ -1,8 +1,7 @@
-// import before any other module
-import './bootstrap';
+// load config and fail fast in case of error
+import config from './common/providers/config';
 
 import app from './app';
-import config from './common/providers/config';
 import log from './common/providers/log';
 
 const server = app.listen(config.HTTP_PORT, config.HTTP_HOST, () => {
