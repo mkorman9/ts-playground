@@ -4,7 +4,6 @@ WORKDIR /build
 
 COPY . .
 RUN npm ci && npm run build
-RUN pwd && ls -la
 
 FROM node:18-slim
 
