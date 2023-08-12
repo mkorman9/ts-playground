@@ -1,14 +1,17 @@
 FROM node:18 AS builder
 
+WORKDIR /build
+
 COPY . .
 RUN npm ci && npm run build
+RUN pwd && ls -la
 
 FROM node:18-slim
 
-COPY --chown=node:node --from=builder dist/ /runtime/dist/
-COPY --chown=node:node --from=builder templates/ /runtime/templates/
-COPY --chown=node:node --from=builder package.json /runtime
-COPY --chown=node:node --from=builder package-lock.json /runtime
+COPY --chown=node:node --from=builder /build/lib/ /runtime/lib/
+COPY --chown=node:node --from=builder /build/templates/ /runtime/templates/
+COPY --chown=node:node --from=builder /build/package.json /runtime
+COPY --chown=node:node --from=builder /build/package-lock.json /runtime
 
 USER node
 WORKDIR /runtime
