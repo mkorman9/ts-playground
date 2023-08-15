@@ -5,20 +5,18 @@ import { Firestore, getFirestore } from 'firebase-admin/firestore';
 function initializeFirebase() {
   if (process.env.NODE_ENV !== 'test') {
     const app = initializeApp();
-    const auth = getAuth(app);
-    const db = getFirestore(app);
 
     return {
       app,
-      auth,
-      db
+      auth: getAuth(app),
+      firestore: getFirestore(app)
     };
   }
 
   return {
     app: {} as App,
     auth: {} as Auth,
-    db: {} as Firestore
+    firestore: {} as Firestore
   };
 }
 
