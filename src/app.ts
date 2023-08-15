@@ -1,6 +1,7 @@
 // first load extensions
 import './common/providers/dayjs_extensions';
 import './common/providers/log_extensions';
+import './common/providers/firebase';
 
 import express, { NextFunction, Request, Response } from 'express';
 import log from './common/providers/log';
